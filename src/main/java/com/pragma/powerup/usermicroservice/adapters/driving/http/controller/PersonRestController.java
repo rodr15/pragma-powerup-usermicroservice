@@ -1,6 +1,6 @@
 package com.pragma.powerup.usermicroservice.adapters.driving.http.controller;
 
-import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.request.PersonRequest;
+import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.request.PersonRequestDto;
 import com.pragma.powerup.usermicroservice.configuration.Constants;
 import com.pragma.powerup.usermicroservice.domain.api.IPersonServicePort;
 import com.pragma.powerup.usermicroservice.adapters.driving.http.mapper.IPersonRequestMapper;
@@ -33,8 +33,8 @@ public class PersonRestController {
                 @ApiResponse(responseCode = "409", description = "Person already exists",
                         content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
     @PostMapping
-    public ResponseEntity<Map<String, String>> savePerson(@RequestBody PersonRequest personRequest) {
-        personServicePort.savePerson(personRequestMapper.toPerson(personRequest));
+    public ResponseEntity<Map<String, String>> savePerson(@RequestBody PersonRequestDto personRequestDto) {
+        personServicePort.savePerson(personRequestMapper.toPerson(personRequestDto));
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.PERSON_CREATED_MESSAGE));
     }

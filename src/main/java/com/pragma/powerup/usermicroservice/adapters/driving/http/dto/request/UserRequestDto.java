@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @AllArgsConstructor
 @Getter
-public class UserRequest {
+public class UserRequestDto {
     private Long idPerson;
     private Long idRole;
 }

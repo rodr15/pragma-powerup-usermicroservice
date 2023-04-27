@@ -1,10 +1,10 @@
 package com.pragma.powerup.usermicroservice.adapters.driving.http.controller;
 
+import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.request.UserRequestDto;
 import com.pragma.powerup.usermicroservice.adapters.driving.http.mapper.IPersonResponseMapper;
 import com.pragma.powerup.usermicroservice.adapters.driving.http.mapper.IUserRequestMapper;
 import com.pragma.powerup.usermicroservice.configuration.Constants;
 import com.pragma.powerup.usermicroservice.domain.api.IUserServicePort;
-import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.request.UserRequest;
 import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.response.PersonResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -47,8 +47,8 @@ public class UserRestController {
                     @ApiResponse(responseCode = "403", description = "Role not allowed for user creation",
                             content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
     @PostMapping("")
-    public ResponseEntity<Map<String, String>> saveUser(@RequestBody UserRequest userRequest) {
-        userServicePort.saveUser(userRequestMapper.toUser(userRequest));
+    public ResponseEntity<Map<String, String>> saveUser(@RequestBody UserRequestDto userRequestDto) {
+        userServicePort.saveUser(userRequestMapper.toUser(userRequestDto));
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.USER_CREATED_MESSAGE));
     }
@@ -59,8 +59,8 @@ public class UserRestController {
                     @ApiResponse(responseCode = "404", description = "User not found",
                             content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
     @DeleteMapping("")
-    public ResponseEntity<Map<String, String>> deleteUser(@RequestBody UserRequest userRequest) {
-        userServicePort.deleteUser(userRequestMapper.toUser(userRequest));
+    public ResponseEntity<Map<String, String>> deleteUser(@RequestBody UserRequestDto userRequestDto) {
+        userServicePort.deleteUser(userRequestMapper.toUser(userRequestDto));
         return ResponseEntity.ok(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.USER_DELETED_MESSAGE));
     }
     @Operation(summary = "Get all the providers",
