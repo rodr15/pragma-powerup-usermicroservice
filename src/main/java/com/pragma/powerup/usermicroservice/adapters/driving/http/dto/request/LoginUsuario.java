@@ -1,25 +1,15 @@
 package com.pragma.powerup.usermicroservice.adapters.driving.http.dto.request;
 
-import javax.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotBlank;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 
+
+@AllArgsConstructor
+@Getter
 public class LoginUsuario {
     @NotBlank
     private String userDni;
     @NotBlank
     private String password;
-
-    public String getUserDni() {
-        return userDni;
-    }
-    public void setNombreUsuario(String userDni) {
-        this.userDni = userDni;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
 }
