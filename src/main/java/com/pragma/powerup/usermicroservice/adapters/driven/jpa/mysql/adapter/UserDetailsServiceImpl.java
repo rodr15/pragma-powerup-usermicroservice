@@ -1,7 +1,6 @@
 package com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.adapter;
 
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.repositories.IPersonRepository;
-import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.repositories.IRoleRepository;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.repositories.IUserRepository;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.entity.PersonEntity;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.entity.PrincipalUser;
@@ -23,8 +22,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     IPersonRepository personRepository;
     @Autowired
     IUserRepository userRepository;
-    @Autowired
-    IRoleRepository roleRepository;
 
     @Override
     public UserDetails loadUserByUsername(String documentID) throws UsernameNotFoundException {
