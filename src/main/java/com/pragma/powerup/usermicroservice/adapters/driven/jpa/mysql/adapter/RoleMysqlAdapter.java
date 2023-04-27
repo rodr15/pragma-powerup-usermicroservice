@@ -1,9 +1,9 @@
 package com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.adapter;
 
-import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.repository.IRoleRepository;
+import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.repositories.IRoleRepository;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.entity.RoleEntity;
-import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.exception.NoDataFoundException;
-import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.mapper.IRoleEntityMapper;
+import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.exceptions.NoDataFoundException;
+import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.mappers.IRoleEntityMapper;
 import com.pragma.powerup.usermicroservice.domain.model.Role;
 import com.pragma.powerup.usermicroservice.domain.spi.IRolePersistencePort;
 import lombok.RequiredArgsConstructor;

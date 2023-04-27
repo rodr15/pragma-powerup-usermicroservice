@@ -1,4 +1,4 @@
-package com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.mapper;
+package com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.mappers;
 
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.entity.PersonEntity;
 import com.pragma.powerup.usermicroservice.domain.model.Person;

@@ -1,4 +1,4 @@
-package com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.repository;
+package com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.repositories;
 
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.entity.UserEntity;
 import org.springframework.data.domain.Pageable;

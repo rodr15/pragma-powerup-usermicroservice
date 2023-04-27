@@ -1,9 +1,9 @@
 package com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.adapter;
 
-import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.exception.MailAlreadyExistsException;
-import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.repository.IPersonRepository;
-import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.exception.PersonAlreadyExistsException;
-import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.mapper.IPersonEntityMapper;
+import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.exceptions.MailAlreadyExistsException;
+import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.repositories.IPersonRepository;
+import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.exceptions.PersonAlreadyExistsException;
+import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.mappers.IPersonEntityMapper;
 import com.pragma.powerup.usermicroservice.domain.model.Person;
 import com.pragma.powerup.usermicroservice.domain.spi.IPersonPersistencePort;
 import lombok.RequiredArgsConstructor;
