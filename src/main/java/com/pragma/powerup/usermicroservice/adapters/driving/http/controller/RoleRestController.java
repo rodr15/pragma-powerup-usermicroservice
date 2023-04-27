@@ -1,8 +1,7 @@
 package com.pragma.powerup.usermicroservice.adapters.driving.http.controller;
 
-import com.pragma.powerup.usermicroservice.adapters.driving.http.mapper.IRoleResponseMapper;
-import com.pragma.powerup.usermicroservice.domain.api.IRoleServicePort;
 import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.response.RoleResponse;
+import com.pragma.powerup.usermicroservice.adapters.driving.http.handlers.IRoleHandler;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -22,8 +21,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @SecurityRequirement(name = "jwt")
 public class RoleRestController {
-    private final IRoleResponseMapper roleResponseMapper;
-    private final IRoleServicePort roleServicePort;
+    private final IRoleHandler roleHandler;
 
     @Operation(summary = "Get all the roles",
             responses = {
@@ -34,6 +32,6 @@ public class RoleRestController {
                             content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
     @GetMapping("")
     public ResponseEntity<List<RoleResponse>> getAllRoles() {
-        return ResponseEntity.ok(roleResponseMapper.toResponseList(roleServicePort.getAllRoles()));
+        return ResponseEntity.ok(roleHandler.getAllRoles());
     }
 }
