@@ -18,9 +18,3 @@ management:
     web:
       exposure:
         include: "*"
-
-springdoc:
-  swagger-ui:
-    disable-swagger-default-url: true
-    config-url: ${stage}/user/v3/api-docs/swagger-config
-    url: ${stage}/user/v3/api-docs
