@@ -20,7 +20,7 @@ VALUES
     '1',
     'email@some.com',
     'Name',
-    '$2a$10$Kh1wAmamgeEIJvIPZECRkOSlrdyIZRukiwWqLp1lBgog/5Ukvdzce',
+    '$2a$10$GlsGSNhkbVon6ZOSNMptOu5RikedRzlCAhMa7YpwvUSS0c88WT99S',
     '1234567890',
     'Surname',
     NULL
