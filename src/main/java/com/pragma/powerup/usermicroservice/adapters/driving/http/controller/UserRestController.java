@@ -1,10 +1,8 @@
 package com.pragma.powerup.usermicroservice.adapters.driving.http.controller;
 
 import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.request.UserRequestDto;
-import com.pragma.powerup.usermicroservice.adapters.driving.http.mapper.IPersonResponseMapper;
-import com.pragma.powerup.usermicroservice.adapters.driving.http.mapper.IUserRequestMapper;
+import com.pragma.powerup.usermicroservice.adapters.driving.http.handlers.IUserHandler;
 import com.pragma.powerup.usermicroservice.configuration.Constants;
-import com.pragma.powerup.usermicroservice.domain.api.IUserServicePort;
 import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.response.PersonResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -34,9 +32,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 @SecurityRequirement(name = "jwt")
 public class UserRestController {
-    private final IUserServicePort userServicePort;
-    private final IUserRequestMapper userRequestMapper;
-    private final IPersonResponseMapper personResponseMapper;
+    private final IUserHandler userHandler;
 
     @Operation(summary = "Add a new user",
             responses = {
@@ -48,7 +44,7 @@ public class UserRestController {
                             content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
     @PostMapping("")
     public ResponseEntity<Map<String, String>> saveUser(@RequestBody UserRequestDto userRequestDto) {
-        userServicePort.saveUser(userRequestMapper.toUser(userRequestDto));
+        userHandler.saveUser(userRequestDto);
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.USER_CREATED_MESSAGE));
     }
@@ -60,7 +56,7 @@ public class UserRestController {
                             content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
     @DeleteMapping("")
     public ResponseEntity<Map<String, String>> deleteUser(@RequestBody UserRequestDto userRequestDto) {
-        userServicePort.deleteUser(userRequestMapper.toUser(userRequestDto));
+        userHandler.deleteUser(userRequestDto);
         return ResponseEntity.ok(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.USER_DELETED_MESSAGE));
     }
     @Operation(summary = "Get all the providers",
@@ -72,7 +68,7 @@ public class UserRestController {
                             content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
     @GetMapping("/provider")
     public ResponseEntity<List<PersonResponse>> getAllProviders(@Parameter(description = "Number of the page to list providers") @RequestParam int page) {
-        return ResponseEntity.ok(personResponseMapper.userListToPersonResponseList(userServicePort.getAllProviders(page)));
+        return ResponseEntity.ok(userHandler.getProvider(page));
     }
     @Operation(summary = "Get a provider user",
             responses = {
@@ -82,7 +78,7 @@ public class UserRestController {
                             content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
     @GetMapping("/provider/{id}")
     public ResponseEntity<PersonResponse> getProvider(@PathVariable Long id) {
-        return ResponseEntity.ok(personResponseMapper.userToPersonResponse(userServicePort.getProvider(id)));
+        return ResponseEntity.ok(userHandler.getProvider(id));
     }
     @Operation(summary = "Get a employee user",
             responses = {
@@ -92,7 +88,7 @@ public class UserRestController {
                             content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
     @GetMapping("/employee/{id}")
     public ResponseEntity<PersonResponse> getEmployee(@PathVariable Long id) {
-        return ResponseEntity.ok(personResponseMapper.userToPersonResponse(userServicePort.getEmployee(id)));
+        return ResponseEntity.ok(userHandler.getEmployee(id));
     }
     @Operation(summary = "Get a client user",
             responses = {
@@ -102,6 +98,6 @@ public class UserRestController {
                             content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
     @GetMapping("/client/{id}")
     public ResponseEntity<PersonResponse> getClient(@PathVariable Long id) {
-        return ResponseEntity.ok(personResponseMapper.userToPersonResponse(userServicePort.getClient(id)));
+        return ResponseEntity.ok(userHandler.getClient(id));
     }
 }
