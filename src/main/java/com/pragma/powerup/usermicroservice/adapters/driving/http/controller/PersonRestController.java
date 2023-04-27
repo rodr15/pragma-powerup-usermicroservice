@@ -1,9 +1,8 @@
 package com.pragma.powerup.usermicroservice.adapters.driving.http.controller;
 
 import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.request.PersonRequestDto;
+import com.pragma.powerup.usermicroservice.adapters.driving.http.handlers.IPersonHandler;
 import com.pragma.powerup.usermicroservice.configuration.Constants;
-import com.pragma.powerup.usermicroservice.domain.api.IPersonServicePort;
-import com.pragma.powerup.usermicroservice.adapters.driving.http.mapper.IPersonRequestMapper;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -23,8 +22,7 @@ import java.util.Map;
 @RequestMapping("/person/")
 @RequiredArgsConstructor
 public class PersonRestController {
-    private final IPersonServicePort personServicePort;
-    private final IPersonRequestMapper personRequestMapper;
+    private final IPersonHandler personHandler;
 
     @Operation(summary = "Add a new person",
             responses = {
@@ -34,7 +32,7 @@ public class PersonRestController {
                         content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
     @PostMapping
     public ResponseEntity<Map<String, String>> savePerson(@RequestBody PersonRequestDto personRequestDto) {
-        personServicePort.savePerson(personRequestMapper.toPerson(personRequestDto));
+        personHandler.savePerson(personRequestDto);
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.PERSON_CREATED_MESSAGE));
     }
