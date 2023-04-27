@@ -46,6 +46,7 @@ To get a local copy up and running follow these steps.
           username: root
           password: <your-password>
    ```
+5. After the tables are created execute src/main/resources/data.sql content to populate the database
 
 <!-- USAGE -->
 ## Usage
