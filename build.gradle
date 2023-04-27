@@ -4,7 +4,7 @@ plugins {
 	id 'io.spring.dependency-management' version '1.1.0'
 }
 
-group = 'com.ti.acelera'
+group = 'com.pragma.powerup'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '17'
 
@@ -18,24 +18,38 @@ repositories {
 	mavenCentral()
 }
 
+ext {
+	springBootVersion = "3.0.1"
+	mapstructVersion = "1.5.3.Final"
+	lombokVersion = "1.18.24"
+	mySqlConnectorVersion = "8.0.32"
+	openApiVersion = "2.0.2"
+	validationApiVersion = "2.0.1.Final"
+	jjwtApiVersion = "0.11.5"
+	jjwtImplVersion = "0.11.5"
+	jjwtJacksonVersion = "0.11.5"
+	springSecurityTestVersion = "5.6.1"
+	nimbusJoseJwtVersion = "9.28"
+}
+
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-	implementation 'org.springframework.boot:spring-boot-starter-web'
-	implementation 'org.mapstruct:mapstruct:1.5.3.Final'
-	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.2'
-	implementation 'org.springframework.boot:spring-boot-starter-validation'
-	implementation 'org.springframework.boot:spring-boot-starter-security:2.5.7'
-	implementation 'javax.validation:validation-api:2.0.1.Final'
-	implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
-	compileOnly 'org.projectlombok:lombok'
-	runtimeOnly 'com.mysql:mysql-connector-j'
-	runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.5',
-			'io.jsonwebtoken:jjwt-jackson:0.11.5'
-	annotationProcessor 'org.projectlombok:lombok'
-	annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.3.Final'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	testImplementation 'org.springframework.security:spring-security-test'
-	implementation 'com.nimbusds:nimbus-jose-jwt:9.28'
+	implementation "org.springframework.boot:spring-boot-starter-data-jpa:${springBootVersion}"
+	implementation "org.springframework.boot:spring-boot-starter-web:${springBootVersion}"
+	implementation "org.mapstruct:mapstruct:${mapstructVersion}"
+	implementation "org.springdoc:springdoc-openapi-starter-webmvc-ui:${openApiVersion}"
+	implementation "org.springframework.boot:spring-boot-starter-validation:${springBootVersion}"
+	implementation "org.springframework.boot:spring-boot-starter-security:${springBootVersion}"
+	implementation "javax.validation:validation-api:${validationApiVersion}"
+	implementation "io.jsonwebtoken:jjwt-api:${jjwtApiVersion}"
+	compileOnly "org.projectlombok:lombok:${lombokVersion}"
+	runtimeOnly "com.mysql:mysql-connector-j:${mySqlConnectorVersion}"
+	runtimeOnly "io.jsonwebtoken:jjwt-impl:${jjwtImplVersion}",
+			"io.jsonwebtoken:jjwt-jackson:${jjwtJacksonVersion}"
+	annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+	annotationProcessor "org.mapstruct:mapstruct-processor:${mapstructVersion}"
+	testImplementation "org.springframework.boot:spring-boot-starter-test:${springBootVersion}"
+	testImplementation "org.springframework.security:spring-security-test:${springSecurityTestVersion}"
+	implementation "com.nimbusds:nimbus-jose-jwt:${nimbusJoseJwtVersion}"
 }
 
 tasks.named('test') {
