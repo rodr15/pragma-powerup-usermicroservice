@@ -32,21 +32,18 @@ public class JwtTokenFilter extends OncePerRequestFilter {
 
     private List<String> excludedPrefixes = Arrays.asList("/auth/**", "/swagger-ui/**", "/actuator/**", "/person/");
     private AntPathMatcher pathMatcher = new AntPathMatcher();
+
     @Override
     protected void doFilterInternal(HttpServletRequest req, HttpServletResponse res, FilterChain filterChain)
             throws ServletException, IOException {
-        try {
-            String token = getToken(req);
-            if (token != null && jwtProvider.validateToken(token)) {
-                String nombreUsuario = jwtProvider.getNombreUsuarioFromToken(token);
-                UserDetails userDetails = userDetailsService.loadUserByUsername(nombreUsuario);
+        String token = getToken(req);
+        if (token != null && jwtProvider.validateToken(token)) {
+            String nombreUsuario = jwtProvider.getNombreUsuarioFromToken(token);
+            UserDetails userDetails = userDetailsService.loadUserByUsername(nombreUsuario);
 
-                UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(userDetails, null,
-                        userDetails.getAuthorities());
-                SecurityContextHolder.getContext().setAuthentication(auth);
-            }
-        } catch (Exception e) {
-            logger.error("fail en el método doFilter " + e.getMessage());
+            UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(userDetails, null,
+                    userDetails.getAuthorities());
+            SecurityContextHolder.getContext().setAuthentication(auth);
         }
         filterChain.doFilter(req, res);
     }
@@ -64,8 +61,8 @@ public class JwtTokenFilter extends OncePerRequestFilter {
 
     private String getToken(HttpServletRequest request) {
         String header = request.getHeader("Authorization");
-        if (header != null) {
-            return header;
+        if (header != null && header.startsWith("Bearer ")) {
+            return header.substring(7); // return everything after "Bearer "
         }
         return null;
     }
