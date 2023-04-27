@@ -1,7 +1,7 @@
 package com.pragma.powerup.usermicroservice.adapters.driving.http.handlers.impl;
 
 import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.request.LoginRequestDto;
-import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.response.JwtDto;
+import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.response.JwtResponseDto;
 import com.pragma.powerup.usermicroservice.adapters.driving.http.handlers.IAuthHandler;
 import com.pragma.powerup.usermicroservice.configuration.security.jwt.JwtProvider;
 import lombok.RequiredArgsConstructor;
@@ -22,19 +22,19 @@ public class AuthHandlerImpl implements IAuthHandler {
     private final JwtProvider jwtProvider;
 
     @Override
-    public JwtDto login(LoginRequestDto loginRequestDto) {
+    public JwtResponseDto login(LoginRequestDto loginRequestDto) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginRequestDto.getUserDni(), loginRequestDto.getPassword())
         );
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = jwtProvider.generateToken(authentication);
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        return new JwtDto(jwt);
+        return new JwtResponseDto(jwt);
     }
 
     @Override
-    public JwtDto refresh(JwtDto jwtDto) throws ParseException {
-        String token = jwtProvider.refreshToken(jwtDto);
-        return new JwtDto(token);
+    public JwtResponseDto refresh(JwtResponseDto jwtResponseDto) throws ParseException {
+        String token = jwtProvider.refreshToken(jwtResponseDto);
+        return new JwtResponseDto(token);
     }
 }

@@ -1,7 +1,7 @@
 package com.pragma.powerup.usermicroservice.adapters.driving.http.handlers.impl;
 
 import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.request.UserRequestDto;
-import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.response.PersonResponse;
+import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.response.PersonResponseDto;
 import com.pragma.powerup.usermicroservice.adapters.driving.http.handlers.IUserHandler;
 import com.pragma.powerup.usermicroservice.adapters.driving.http.mapper.IPersonResponseMapper;
 import com.pragma.powerup.usermicroservice.adapters.driving.http.mapper.IUserRequestMapper;
@@ -30,22 +30,22 @@ public class UserHandlerImpl implements IUserHandler {
     }
 
     @Override
-    public List<PersonResponse> getProvider(Integer page) {
+    public List<PersonResponseDto> getProvider(Integer page) {
         return personResponseMapper.userListToPersonResponseList(userServicePort.getAllProviders(page));
     }
 
     @Override
-    public PersonResponse getProvider(Long id) {
+    public PersonResponseDto getProvider(Long id) {
         return personResponseMapper.userToPersonResponse(userServicePort.getProvider(id));
     }
 
     @Override
-    public PersonResponse getEmployee(Long id) {
+    public PersonResponseDto getEmployee(Long id) {
         return personResponseMapper.userToPersonResponse(userServicePort.getEmployee(id));
     }
 
     @Override
-    public PersonResponse getClient(Long id) {
+    public PersonResponseDto getClient(Long id) {
         return personResponseMapper.userToPersonResponse(userServicePort.getClient(id));
     }
 }

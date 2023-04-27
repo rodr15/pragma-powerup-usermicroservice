@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @AllArgsConstructor
 @Getter
-public class RoleResponse {
-    private String name;
-    private String description;
+public class UserResponseDto {
+    private Long idPerson;
+    private Long idRole;
 }

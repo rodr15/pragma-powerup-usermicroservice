@@ -1,7 +1,7 @@
 package com.pragma.powerup.usermicroservice.adapters.driving.http.mapper;
 
+import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.response.PersonResponseDto;
 import com.pragma.powerup.usermicroservice.domain.model.User;
-import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.response.PersonResponse;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.ReportingPolicy;
@@ -20,6 +20,6 @@ public interface IPersonResponseMapper {
     @Mapping(source = "person.idDniType", target = "idDniType")
     @Mapping(source = "person.dniNumber", target = "dniNumber")
     @Mapping(source = "person.idPersonType", target = "idPersonType")
-    PersonResponse userToPersonResponse(User user);
-    List<PersonResponse> userListToPersonResponseList(List<User> userList);
+    PersonResponseDto userToPersonResponse(User user);
+    List<PersonResponseDto> userListToPersonResponseList(List<User> userList);
 }

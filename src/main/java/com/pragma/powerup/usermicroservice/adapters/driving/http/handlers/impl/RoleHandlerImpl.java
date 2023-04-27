@@ -1,6 +1,6 @@
 package com.pragma.powerup.usermicroservice.adapters.driving.http.handlers.impl;
 
-import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.response.RoleResponse;
+import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.response.RoleResponseDto;
 import com.pragma.powerup.usermicroservice.adapters.driving.http.handlers.IRoleHandler;
 import com.pragma.powerup.usermicroservice.adapters.driving.http.mapper.IRoleResponseMapper;
 import com.pragma.powerup.usermicroservice.domain.api.IRoleServicePort;
@@ -16,7 +16,7 @@ public class RoleHandlerImpl implements IRoleHandler {
     private final IRoleServicePort roleServicePort;
 
     @Override
-    public List<RoleResponse> getAllRoles() {
+    public List<RoleResponseDto> getAllRoles() {
         return roleResponseMapper.toResponseList(roleServicePort.getAllRoles());
     }
 }

@@ -1,12 +1,12 @@
 package com.pragma.powerup.usermicroservice.adapters.driving.http.dto.response;
 
-public class JwtDto {
+public class JwtResponseDto {
     private String token;
 
-    public JwtDto() {
+    public JwtResponseDto() {
     }
 
-    public JwtDto(String token) {
+    public JwtResponseDto(String token) {
         this.token = token;
     }
 

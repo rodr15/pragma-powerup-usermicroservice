@@ -4,7 +4,7 @@ import com.nimbusds.jwt.JWT;
 import com.nimbusds.jwt.JWTClaimsSet;
 import com.nimbusds.jwt.JWTParser;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.entity.PrincipalUser;
-import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.response.JwtDto;
+import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.response.JwtResponseDto;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.MalformedJwtException;
@@ -67,11 +67,11 @@ public class JwtProvider {
         return false;
     }
 
-    public String refreshToken(JwtDto jwtDto) throws ParseException {
+    public String refreshToken(JwtResponseDto jwtResponseDto) throws ParseException {
         try {
-            Jwts.parser().setSigningKey(secret.getBytes()).parseClaimsJws(jwtDto.getToken());
+            Jwts.parser().setSigningKey(secret.getBytes()).parseClaimsJws(jwtResponseDto.getToken());
         } catch (ExpiredJwtException e) {
-            JWT jwt = JWTParser.parse(jwtDto.getToken());
+            JWT jwt = JWTParser.parse(jwtResponseDto.getToken());
             JWTClaimsSet claims = jwt.getJWTClaimsSet();
             String nombreUsuario = claims.getSubject();
             List<String> roles = claims.getStringListClaim("roles");

@@ -1,6 +1,6 @@
 package com.pragma.powerup.usermicroservice.adapters.driving.http.controller;
 
-import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.response.RoleResponse;
+import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.response.RoleResponseDto;
 import com.pragma.powerup.usermicroservice.adapters.driving.http.handlers.IRoleHandler;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -27,11 +27,11 @@ public class RoleRestController {
             responses = {
                     @ApiResponse(responseCode = "200", description = "All roles returned",
                             content = @Content(mediaType = "application/json",
-                                    array = @ArraySchema(schema = @Schema(implementation = RoleResponse.class)))),
+                                    array = @ArraySchema(schema = @Schema(implementation = RoleResponseDto.class)))),
                     @ApiResponse(responseCode = "404", description = "No data found",
                             content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
     @GetMapping("")
-    public ResponseEntity<List<RoleResponse>> getAllRoles() {
+    public ResponseEntity<List<RoleResponseDto>> getAllRoles() {
         return ResponseEntity.ok(roleHandler.getAllRoles());
     }
 }

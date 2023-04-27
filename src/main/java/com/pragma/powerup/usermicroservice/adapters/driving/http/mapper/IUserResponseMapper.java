@@ -1,6 +1,6 @@
 package com.pragma.powerup.usermicroservice.adapters.driving.http.mapper;
 
-import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.response.UserResponse;
+import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.response.UserResponseDto;
 import com.pragma.powerup.usermicroservice.domain.model.User;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -14,6 +14,6 @@ import java.util.List;
 public interface IUserResponseMapper {
     @Mapping(target = "idPerson", source = "person.id")
     @Mapping(target = "idRole", source = "role.id")
-    UserResponse toResponse(User user);
-    List<UserResponse> toResponseList(List<User> userList);
+    UserResponseDto toResponse(User user);
+    List<UserResponseDto> toResponseList(List<User> userList);
 }
