@@ -15,7 +15,7 @@ public class Constants {
     public static final String USER_CREATED_MESSAGE = "User created successfully";
     public static final String USER_DELETED_MESSAGE = "User deleted successfully";
     public static final String RESPONSE_ERROR_MESSAGE_KEY = "error";
-    public static final String WRONG_CREDENTIALS_MESSAGE = "Wrong credentials";
+    public static final String WRONG_CREDENTIALS_MESSAGE = "Wrong credentials or role not allowed";
     public static final String NO_DATA_FOUND_MESSAGE = "No data found for the requested petition";
     public static final String PERSON_ALREADY_EXISTS_MESSAGE = "A person already exists with the DNI number provided";
     public static final String MAIL_ALREADY_EXISTS_MESSAGE = "A person with that mail already exists";

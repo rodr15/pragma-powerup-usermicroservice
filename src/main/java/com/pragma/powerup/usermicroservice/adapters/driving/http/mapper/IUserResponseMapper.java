@@ -12,8 +12,6 @@ import java.util.List;
         unmappedTargetPolicy = ReportingPolicy.IGNORE,
         unmappedSourcePolicy = ReportingPolicy.IGNORE)
 public interface IUserResponseMapper {
-    @Mapping(target = "idPerson", source = "person.id")
-    @Mapping(target = "idRole", source = "role.id")
-    UserResponseDto toResponse(User user);
-    List<UserResponseDto> toResponseList(List<User> userList);
+    UserResponseDto userToPersonResponse(User user);
+    List<UserResponseDto> userListToPersonResponseList(List<User> userList);
 }
