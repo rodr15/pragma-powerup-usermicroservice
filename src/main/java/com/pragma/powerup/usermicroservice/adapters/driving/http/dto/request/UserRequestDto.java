@@ -5,7 +5,7 @@ import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @AllArgsConstructor
 @Getter
@@ -16,12 +16,12 @@ public class UserRequestDto {
     private String surname;
     @NotBlank(message = "Mandatory")
     private String dniNumber;
-    @Size(min = 13 , max = 13,message = "Phone number must have 13 characters")
+    @Size(max = 13,message = "Phone number must have 13 characters")
     @NotBlank(message = "Mandatory")
     private String phone;
     @Past(message = "The date must before today")
     @NotNull(message = "Mandatory")
-    private Date birthDate;
+    private LocalDate birthDate;
     @Email(message = "Invalid Email")
     @NotBlank(message = "Mandatory")
     private String mail;
