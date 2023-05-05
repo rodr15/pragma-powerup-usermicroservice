@@ -4,8 +4,8 @@ server:
 spring:
   datasource:
     url: jdbc:mysql://localhost/powerup
-    username: powerup
-    password: powerup
+    username: root
+    password: asrf.07.15
   jpa:
     hibernate:
       ddl-auto: update

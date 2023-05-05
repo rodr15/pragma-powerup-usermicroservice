@@ -5,10 +5,9 @@ public class Constants {
     private Constants() {
         throw new IllegalStateException("Utility class");
     }
-
-    public static final Long CLIENT_ROLE_ID = 1L;
-    public static final Long EMPLOYEE_ROLE_ID = 2L;
-    public static final Long PROVIDER_ROLE_ID = 3L;
+    public static final Long ADMIN_ROLE_ID = 1L;
+    public static final Long USER_ROLE_ID = 2L;
+    public static final Long OWNER_ROLE_ID = 3L;
     public static final int MAX_PAGE_SIZE = 2;
     public static final String RESPONSE_MESSAGE_KEY = "message";
     public static final String PERSON_CREATED_MESSAGE = "Person created successfully";

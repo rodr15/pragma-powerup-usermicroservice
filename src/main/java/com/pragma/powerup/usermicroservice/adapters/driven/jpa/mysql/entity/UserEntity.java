@@ -13,6 +13,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Date;
+
 @Entity
 @Table(name = "user")
 @NoArgsConstructor
@@ -34,6 +36,7 @@ public class UserEntity {
     private String idPersonType;
     private String password;
     private String tokenPassword;
+    private Date birthDate;
     @ManyToOne(optional = true)
     @JoinColumn(name = "id_role")
     private RoleEntity role;

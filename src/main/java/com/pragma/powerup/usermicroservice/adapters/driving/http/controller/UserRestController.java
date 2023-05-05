@@ -18,21 +18,24 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Collections;
 import java.util.Map;
 
+import static com.pragma.powerup.usermicroservice.configuration.Constants.OWNER_ROLE_ID;
+
 @RestController
 @RequestMapping("/user/")
 @RequiredArgsConstructor
 public class UserRestController {
     private final IUserHandler personHandler;
 
-    @Operation(summary = "Add a new user",
+    @Operation(summary = "Add a new Owner",
             responses = {
-                @ApiResponse(responseCode = "201", description = "Person created",
+                @ApiResponse(responseCode = "201", description = "Owner created",
                         content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Map"))),
                 @ApiResponse(responseCode = "409", description = "Person already exists",
                         content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
     @PostMapping
-    public ResponseEntity<Map<String, String>> savePerson(@RequestBody UserRequestDto userRequestDto) {
-        personHandler.saveUser(userRequestDto);
+    public ResponseEntity<Map<String, String>> saveOwner(@RequestBody UserRequestDto userRequestDto) {
+
+        personHandler.saveUserWithRole(userRequestDto,OWNER_ROLE_ID);
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.PERSON_CREATED_MESSAGE));
     }

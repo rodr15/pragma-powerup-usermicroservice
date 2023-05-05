@@ -1,5 +1,7 @@
 package com.pragma.powerup.usermicroservice.domain.model;
 
+import java.util.Date;
+
 public class User {
     private Long id;
     private String name;
@@ -11,8 +13,10 @@ public class User {
     private String dniNumber;
     private String idPersonType;
     private String password;
+    private Date birthDate;
+    private Role role;
 
-    public User(Long id, String name, String surname, String mail, String phone, String address, String idDniType, String dniNumber, String idPersonType, String password) {
+    public User(Long id, String name, String surname, String mail, String phone, String address, String idDniType, String dniNumber, String idPersonType, String password, Date birthDate, Role role) {
         this.id = id;
         this.name = name;
         this.surname = surname;
@@ -23,6 +27,8 @@ public class User {
         this.dniNumber = dniNumber;
         this.idPersonType = idPersonType;
         this.password = password;
+        this.birthDate = birthDate;
+        this.role = role;
     }
 
     public Long getId() {
@@ -103,5 +109,21 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Date getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(Date birthDate) {
+        this.birthDate = birthDate;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 }
