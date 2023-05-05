@@ -7,6 +7,8 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,8 +23,9 @@ import java.util.Map;
 import static com.pragma.powerup.usermicroservice.configuration.Constants.OWNER_ROLE_ID;
 
 @RestController
-@RequestMapping("/user/")
+@RequestMapping("/user")
 @RequiredArgsConstructor
+@SecurityRequirement(name = "jwt")
 public class UserRestController {
     private final IUserHandler personHandler;
 
@@ -31,9 +34,15 @@ public class UserRestController {
                 @ApiResponse(responseCode = "201", description = "Owner created",
                         content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Map"))),
                 @ApiResponse(responseCode = "409", description = "Person already exists",
-                        content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
-    @PostMapping
-    public ResponseEntity<Map<String, String>> saveOwner(@RequestBody UserRequestDto userRequestDto) {
+                        content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error"))),
+
+            })
+    @PostMapping("add-owner")
+    public ResponseEntity<Map<String, String>> saveOwner(@Valid @RequestBody @io.swagger.v3.oas.annotations.media.Schema(
+            description = "The request body",
+            example = UserRequestDto.example
+
+    ) UserRequestDto userRequestDto) {
 
         personHandler.saveUserWithRole(userRequestDto,OWNER_ROLE_ID);
         return ResponseEntity.status(HttpStatus.CREATED)

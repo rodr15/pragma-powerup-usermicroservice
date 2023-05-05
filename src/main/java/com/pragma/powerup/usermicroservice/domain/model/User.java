@@ -6,28 +6,22 @@ public class User {
     private Long id;
     private String name;
     private String surname;
-    private String mail;
-    private String phone;
-    private String address;
-    private String idDniType;
     private String dniNumber;
-    private String idPersonType;
-    private String password;
+    private String phone;
     private Date birthDate;
+    private String mail;
+    private String password;
     private Role role;
 
-    public User(Long id, String name, String surname, String mail, String phone, String address, String idDniType, String dniNumber, String idPersonType, String password, Date birthDate, Role role) {
+    public User(Long id, String name, String surname, String dniNumber, String phone, Date birthDate, String mail, String password, Role role) {
         this.id = id;
         this.name = name;
         this.surname = surname;
-        this.mail = mail;
-        this.phone = phone;
-        this.address = address;
-        this.idDniType = idDniType;
         this.dniNumber = dniNumber;
-        this.idPersonType = idPersonType;
-        this.password = password;
+        this.phone = phone;
         this.birthDate = birthDate;
+        this.mail = mail;
+        this.password = password;
         this.role = role;
     }
 
@@ -55,12 +49,12 @@ public class User {
         this.surname = surname;
     }
 
-    public String getMail() {
-        return mail;
+    public String getDniNumber() {
+        return dniNumber;
     }
 
-    public void setMail(String mail) {
-        this.mail = mail;
+    public void setDniNumber(String dniNumber) {
+        this.dniNumber = dniNumber;
     }
 
     public String getPhone() {
@@ -71,36 +65,20 @@ public class User {
         this.phone = phone;
     }
 
-    public String getAddress() {
-        return address;
+    public Date getBirthDate() {
+        return birthDate;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setBirthDate(Date birthDate) {
+        this.birthDate = birthDate;
     }
 
-    public String getIdDniType() {
-        return idDniType;
+    public String getMail() {
+        return mail;
     }
 
-    public void setIdDniType(String idDniType) {
-        this.idDniType = idDniType;
-    }
-
-    public String getDniNumber() {
-        return dniNumber;
-    }
-
-    public void setDniNumber(String dniNumber) {
-        this.dniNumber = dniNumber;
-    }
-
-    public String getIdPersonType() {
-        return idPersonType;
-    }
-
-    public void setIdPersonType(String idPersonType) {
-        this.idPersonType = idPersonType;
+    public void setMail(String mail) {
+        this.mail = mail;
     }
 
     public String getPassword() {
@@ -109,14 +87,6 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public Date getBirthDate() {
-        return birthDate;
-    }
-
-    public void setBirthDate(Date birthDate) {
-        this.birthDate = birthDate;
     }
 
     public Role getRole() {
