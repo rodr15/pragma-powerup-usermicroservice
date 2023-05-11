@@ -10,10 +10,12 @@ import com.pragma.powerup.usermicroservice.domain.spi.IUserPersistencePort;
 import com.pragma.powerup.usermicroservice.domain.usecase.UserUseCase;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.LocalDate;
@@ -22,6 +24,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+@ExtendWith(MockitoExtension.class)
 public class UserUseCaseTest {
 
     @Mock
@@ -39,13 +42,13 @@ public class UserUseCaseTest {
         // Arrange
         User user = new User(
                 3L,
-                "Name",
+                "Prueba",
                 "Surname",
                 "st 123 # 456",
                 "123",
                 LocalDate.of(2000,10,01),
                 "1",
-                "email@some.com",
+                "prueba@some.com",
                 new Role( 3L,"ROLE_OWNER","ROLE_OWNER" )
 
         );

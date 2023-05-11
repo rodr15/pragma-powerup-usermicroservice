@@ -47,9 +47,8 @@ public class UserRestController {
                 .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.PERSON_CREATED_MESSAGE));
     }
 
-    @GetMapping("user-role")
-    public ResponseEntity<RoleResponseDto> getUserRole(String userDni) {
-
+    @GetMapping("user-role/{userDni}")
+    public ResponseEntity<RoleResponseDto> getUserRole(@PathVariable String userDni) {
         return ResponseEntity.ok(personHandler.getRoleByUserId(userDni));
     }
 
