@@ -1,5 +1,8 @@
 package com.pragma.powerup.usermicroservice;
 
+import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.adapter.UserMysqlAdapter;
+import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.mappers.IUserEntityMapper;
+import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.repositories.IUserRepository;
 import com.pragma.powerup.usermicroservice.domain.exceptions.NotLegalAgeException;
 import com.pragma.powerup.usermicroservice.domain.model.Role;
 import com.pragma.powerup.usermicroservice.domain.model.User;
@@ -7,9 +10,11 @@ import com.pragma.powerup.usermicroservice.domain.spi.IUserPersistencePort;
 import com.pragma.powerup.usermicroservice.domain.usecase.UserUseCase;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.LocalDate;
 
@@ -18,6 +23,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 public class UserUseCaseTest {
+
     @Mock
     private IUserPersistencePort userPersistencePort;
 
@@ -28,12 +34,11 @@ public class UserUseCaseTest {
         MockitoAnnotations.initMocks(this);
         userUseCase = new UserUseCase(userPersistencePort);
     }
-
     @Test
     public void testSaveUser_ValidUser_SaveSuccessful() {
         // Arrange
         User user = new User(
-                1L,
+                3L,
                 "Name",
                 "Surname",
                 "st 123 # 456",
@@ -65,7 +70,7 @@ public class UserUseCaseTest {
                 "Surname",
                 "st 123 # 456",
                 "123",
-                LocalDate.of(2000,10,01),
+                LocalDate.of(2005,10,01),
                 "1",
                 "email@some.com",
                 new Role( 3L,"ROLE_OWNER","ROLE_OWNER" )
