@@ -2,6 +2,7 @@ package com.pragma.powerup.usermicroservice.domain.usecase;
 
 import com.pragma.powerup.usermicroservice.domain.api.IUserServicePort;
 import com.pragma.powerup.usermicroservice.domain.exceptions.NotLegalAgeException;
+import com.pragma.powerup.usermicroservice.domain.model.Role;
 import com.pragma.powerup.usermicroservice.domain.model.User;
 import com.pragma.powerup.usermicroservice.domain.spi.IUserPersistencePort;
 
@@ -26,5 +27,12 @@ public class UserUseCase implements IUserServicePort {
         }
 
         return userPersistencePort.saveUser(user);
+    }
+
+    @Override
+    public Role getRoleByUserId(String userDni) {
+
+        User user = userPersistencePort.getUser(userDni);
+        return user.getRole();
     }
 }
