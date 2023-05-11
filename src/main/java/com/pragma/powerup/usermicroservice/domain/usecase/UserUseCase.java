@@ -19,13 +19,12 @@ public class UserUseCase implements IUserServicePort {
     }
 
     @Override
-    public void saveUser(User user) {
-
+    public User saveUser(User user) {
         LocalDate currentDate = LocalDate.now();
         if(Period.between(user.getBirthDate(),currentDate).getYears() < LEGAL_AGE ){
             throw new NotLegalAgeException();
         }
 
-        userPersistencePort.saveUser(user);
+        return userPersistencePort.saveUser(user);
     }
 }
