@@ -1,8 +1,5 @@
 package com.pragma.powerup.usermicroservice;
 
-import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.adapter.UserMysqlAdapter;
-import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.mappers.IUserEntityMapper;
-import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.repositories.IUserRepository;
 import com.pragma.powerup.usermicroservice.domain.exceptions.NotLegalAgeException;
 import com.pragma.powerup.usermicroservice.domain.model.Role;
 import com.pragma.powerup.usermicroservice.domain.model.User;
@@ -11,7 +8,6 @@ import com.pragma.powerup.usermicroservice.domain.usecase.UserUseCase;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
@@ -29,13 +25,13 @@ public class UserUseCaseTest {
 
     @Mock
     private IUserPersistencePort userPersistencePort;
-
+    private PasswordEncoder passwordEncoder;
     private UserUseCase userUseCase;
 
     @BeforeEach
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        userUseCase = new UserUseCase(userPersistencePort);
+        userUseCase = new UserUseCase(userPersistencePort, passwordEncoder);
     }
     @Test
     public void testSaveUser_ValidUser_SaveSuccessful() {

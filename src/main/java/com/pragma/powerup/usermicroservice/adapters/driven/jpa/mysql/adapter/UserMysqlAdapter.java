@@ -17,7 +17,7 @@ import java.util.Optional;
 public class UserMysqlAdapter implements IUserPersistencePort {
     private final IUserRepository personRepository;
     private final IUserEntityMapper personEntityMapper;
-    private final PasswordEncoder passwordEncoder;
+
 
     @Override
     public User saveUser(User user) {
@@ -29,7 +29,6 @@ public class UserMysqlAdapter implements IUserPersistencePort {
             throw new MailAlreadyExistsException();
         }
 
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
         personRepository.save(personEntityMapper.toEntity(user));
         return user;
     }
