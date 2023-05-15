@@ -17,7 +17,6 @@ public class UserMysqlAdapter implements IUserPersistencePort {
     private final IUserRepository personRepository;
     private final IUserEntityMapper personEntityMapper;
 
-
     @Override
     public User saveUser(User user) {
         if (personRepository.findByDniNumber(user.getDniNumber()).isPresent()) {
@@ -37,7 +36,7 @@ public class UserMysqlAdapter implements IUserPersistencePort {
 
         Optional<UserEntity> user = personRepository.findByDniNumber(dni);
 
-        if (!user.isPresent()) {
+        if (user.isEmpty()) {
             throw new PersonNotFoundException();
         }
 
