@@ -12,4 +12,7 @@ import org.mapstruct.ReportingPolicy;
 public interface IUserRequestMapper {
     @Mapping(target = "role.id", source = "idRole")
     User toUserWithRole(UserRequestDto personRequestDto,Long idRole);
+
+
+
 }

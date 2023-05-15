@@ -1,8 +1,5 @@
 package com.pragma.powerup.usermicroservice;
 
-import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.adapter.UserMysqlAdapter;
-import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.mappers.IUserEntityMapper;
-import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.repositories.IUserRepository;
 import com.pragma.powerup.usermicroservice.domain.exceptions.NotLegalAgeException;
 import com.pragma.powerup.usermicroservice.domain.model.Role;
 import com.pragma.powerup.usermicroservice.domain.model.User;
@@ -10,42 +7,46 @@ import com.pragma.powerup.usermicroservice.domain.spi.IUserPersistencePort;
 import com.pragma.powerup.usermicroservice.domain.usecase.UserUseCase;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.LocalDate;
 
+import static org.hibernate.validator.internal.util.Contracts.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+@ExtendWith(MockitoExtension.class)
 public class UserUseCaseTest {
 
     @Mock
     private IUserPersistencePort userPersistencePort;
-
+    private PasswordEncoder passwordEncoder;
     private UserUseCase userUseCase;
 
     @BeforeEach
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        userUseCase = new UserUseCase(userPersistencePort);
+        userUseCase = new UserUseCase(userPersistencePort, passwordEncoder);
     }
     @Test
     public void testSaveUser_ValidUser_SaveSuccessful() {
         // Arrange
         User user = new User(
                 3L,
-                "Name",
+                "Prueba",
                 "Surname",
-                "st 123 # 456",
-                "123",
+                "123123123",
+                "3000000000",
                 LocalDate.of(2000,10,01),
-                "1",
-                "email@some.com",
+                "prueba@some.com",
+                "123",
                 new Role( 3L,"ROLE_OWNER","ROLE_OWNER" )
 
         );
@@ -65,14 +66,14 @@ public class UserUseCaseTest {
     public void testSaveUser_UnderLegalAge_ThrowsNotLegalAgeException() {
         // Arrange
         User user = new User(
-                1L,
-                "Name",
+                3L,
+                "Prueba",
                 "Surname",
-                "st 123 # 456",
+                "123123123",
+                "3000000000",
+                LocalDate.of(2000,10,01),
+                "prueba@some.com",
                 "123",
-                LocalDate.of(2005,10,01),
-                "1",
-                "email@some.com",
                 new Role( 3L,"ROLE_OWNER","ROLE_OWNER" )
 
         );
@@ -81,4 +82,33 @@ public class UserUseCaseTest {
         assertThrows(NotLegalAgeException.class, () -> userUseCase.saveUser(user));
         Mockito.verifyNoInteractions(userPersistencePort);
     }
+
+    @Test
+    void getRoleByUserId_ValidUserId_ReturnsRole() {
+        // Arrange
+        String userDni = "123123123";
+        User user = new User(
+                3L,
+                "Prueba",
+                "Surname",
+                "123123123",
+                "3000000000",
+                LocalDate.of(2000,10,01),
+                "prueba@some.com",
+                "123",
+                new Role( 3L,"ROLE_OWNER","ROLE_OWNER" )
+
+        );
+
+        when(userPersistencePort.getUser(userDni)).thenReturn(user);
+
+        // Act
+        Role result = userUseCase.getRoleByUserId(userDni);
+
+        // Assert
+        assertNotNull(result);
+        assertEquals(user.getRole(), result);
+        verify(userPersistencePort).getUser(userDni);
+    }
+
 }
