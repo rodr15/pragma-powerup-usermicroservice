@@ -1,10 +1,9 @@
 package com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.adapter;
 
-import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.repositories.IUserRepository;
-import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.entity.UserEntity;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.entity.PrincipalUser;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.entity.RoleEntity;
-import com.pragma.powerup.usermicroservice.domain.spi.IRolePersistencePort;
+import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.entity.UserEntity;
+import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.repositories.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -29,6 +28,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         }
 
         List<RoleEntity> roles = new ArrayList<>();
+        roles.add(usuario.getRole());
         roles.add(usuario.getRole());
 
         return PrincipalUser.build(usuario, roles);

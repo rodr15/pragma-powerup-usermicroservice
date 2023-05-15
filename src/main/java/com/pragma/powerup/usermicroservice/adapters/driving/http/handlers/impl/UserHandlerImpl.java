@@ -6,7 +6,6 @@ import com.pragma.powerup.usermicroservice.adapters.driving.http.handlers.IUserH
 import com.pragma.powerup.usermicroservice.adapters.driving.http.mapper.IRoleResponseMapper;
 import com.pragma.powerup.usermicroservice.adapters.driving.http.mapper.IUserRequestMapper;
 import com.pragma.powerup.usermicroservice.domain.api.IUserServicePort;
-import com.pragma.powerup.usermicroservice.domain.model.Role;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
