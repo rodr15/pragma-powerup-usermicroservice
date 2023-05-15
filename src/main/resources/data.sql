@@ -1,4 +1,4 @@
-INSERT INTO `person` (
+INSERT INTO `user` (
     `id`,
     `address`,
     `dni_number`,
@@ -26,8 +26,8 @@ VALUES
     NULL
   );
 
-
 INSERT INTO `role` (`id`, `description`, `name`) VALUES ('1', 'ROLE_ADMIN', 'ROLE_ADMIN');
 INSERT INTO `role` (`id`, `description`, `name`) VALUES ('2', 'ROLE_USER', 'ROLE_USER');
+INSERT INTO `role` (`id`, `description`, `name`) VALUES ('3', 'ROLE_OWNER', 'ROLE_OWNER');
 
-INSERT INTO `user` (`id_person`, `id_role`) VALUES ('1', '1');
+UPDATE user SET id_role = '1' WHERE id = 1;

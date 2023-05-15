@@ -1,9 +1,9 @@
 <br />
 <div align="center">
-<h3 align="center">PRAGMA POWER-UP</h3>
+<h3 align="center">USER MICROSERVICE</h3>
   <p align="center">
-    In this challenge you are going to design the backend of a system that centralizes the services and orders of a restaurant chain that has different branches in the city.
   </p>
+This microservice will be used for the user interaction and information such as login, registration, user profile management, and authentication-related functionalities. It provides endpoints for user creation. Additionally, the microservice handles user authentication using secure token-based authentication mechanisms. It ensures the privacy and security of user data through password encryption techniques. The microservice is designed to integrate with other services in a larger application architecture, allowing seamless user management across the system. 
 </div>
 
 ### Built With
@@ -34,7 +34,7 @@ To get a local copy up and running follow these steps.
 1. Clone the repository
 2. Change directory
    ```sh
-   cd power-up-arquetipo-v3
+   cd usermicroservice
    ```
 3. Create a new database in MySQL called powerup
 4. Update the database connection settings

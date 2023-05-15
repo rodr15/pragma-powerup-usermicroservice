@@ -23,7 +23,10 @@ public class AuthController {
     private final IAuthHandler authHandler;
 
     @PostMapping("/login")
-    public ResponseEntity<JwtResponseDto> login(@Valid @RequestBody LoginRequestDto loginRequestDto) {
+    public ResponseEntity<JwtResponseDto> login(@Valid @RequestBody @io.swagger.v3.oas.annotations.media.Schema(
+            description = "The request body",
+            example = "{\"userDni\":\"123\",\"password\":\"1234\"}"
+    )LoginRequestDto loginRequestDto) {
         return new ResponseEntity<>(authHandler.login(loginRequestDto), HttpStatus.OK);
     }
 
