@@ -27,6 +27,7 @@ public class UserEntity {
     private Long id;
     private String name;
     private String surname;
+    @Column(unique = true, nullable = false, length = 20)
     private String mail;
     private String phone;
     private String address;
