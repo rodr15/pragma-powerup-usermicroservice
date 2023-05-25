@@ -1,2 +1,6 @@
-package com.pragma.powerup.usermicroservice.domain.gateway;public class IPlazoletaClient {
+package com.pragma.powerup.usermicroservice.domain.gateway;
+
+public interface IPlazoletaClient {
+
+    boolean verifyOwner(String userId, Long restaurantId);
 }

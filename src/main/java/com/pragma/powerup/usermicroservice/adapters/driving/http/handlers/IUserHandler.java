@@ -5,6 +5,6 @@ import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.response.Ro
 
 public interface IUserHandler {
     void saveUserOwner(UserRequestDto personRequestDto);
-    void saveUserEmployee(UserRequestDto userRequestDto,Long restaurantId);
+    void saveUserEmployee(UserRequestDto userRequestDto,String ownerId, Long restaurantId) ;
     RoleResponseDto getRoleByUserId(String userDni);
 }

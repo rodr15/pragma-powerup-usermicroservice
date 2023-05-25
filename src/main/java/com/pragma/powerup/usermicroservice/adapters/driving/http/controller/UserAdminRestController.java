@@ -20,8 +20,6 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Collections;
 import java.util.Map;
 
-import static com.pragma.powerup.usermicroservice.configuration.Constants.OWNER_ROLE_ID;
-
 @RestController
 @RequestMapping("/user-admin")
 @RequiredArgsConstructor

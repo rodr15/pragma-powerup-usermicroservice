@@ -6,6 +6,7 @@ import com.pragma.powerup.usermicroservice.adapters.driving.http.handlers.IUserH
 import com.pragma.powerup.usermicroservice.adapters.driving.http.mapper.IRoleResponseMapper;
 import com.pragma.powerup.usermicroservice.adapters.driving.http.mapper.IUserRequestMapper;
 import com.pragma.powerup.usermicroservice.domain.api.IUserServicePort;
+import com.pragma.powerup.usermicroservice.domain.model.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -25,8 +26,9 @@ public class UserHandlerImpl implements IUserHandler {
     }
 
     @Override
-    public void saveUserEmployee(UserRequestDto userRequestDto, Long restaurantId) {
-        personServicePort.saveUser(personRequestMapper.toUserWithRole(userRequestDto, EMPLOYEE_ROLE_ID));
+    public void saveUserEmployee(UserRequestDto userRequestDto,String ownerId, Long restaurantId) {
+        User employee = personRequestMapper.toUserWithRole(userRequestDto, EMPLOYEE_ROLE_ID);
+        personServicePort.saveUserEmployee(employee,ownerId,restaurantId);
     }
 
     @Override

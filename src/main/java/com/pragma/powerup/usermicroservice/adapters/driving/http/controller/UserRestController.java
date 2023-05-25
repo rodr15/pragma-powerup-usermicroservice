@@ -18,8 +18,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Collections;
 import java.util.Map;
 
-import static com.pragma.powerup.usermicroservice.configuration.Constants.OWNER_ROLE_ID;
-
 @RestController
 @RequestMapping("/user")
 @RequiredArgsConstructor
@@ -27,15 +25,19 @@ import static com.pragma.powerup.usermicroservice.configuration.Constants.OWNER_
 public class UserRestController {
     private final IUserHandler personHandler;
 
+    /**
+     * @deprecated
+     * <p> Use {@link /user-admin/add-owner} instead.
+     */
+    @Deprecated(since = "",forRemoval = true)
     @Operation(summary = "Add a new Owner",
-            responses = {
+            responses = { 
                 @ApiResponse(responseCode = "201", description = "Owner created",
                         content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Map"))),
                 @ApiResponse(responseCode = "409", description = "Person already exists",
                         content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error"))),
 
             })
-    @Deprecated(since = "This endpoint is deprecated. Please use the new endpoint.")
     @PostMapping("add-owner")
     public ResponseEntity<Map<String, String>> saveOwner(@Valid @RequestBody @io.swagger.v3.oas.annotations.media.Schema(
             description = "The request body",

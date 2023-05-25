@@ -1,4 +1,4 @@
-package com.ti.acelera.plazoletamicroservice.adapters.driver.client.dto;
+package com.pragma.powerup.usermicroservice.adapters.client.dto;
 
 import lombok.Getter;
 import lombok.Setter;

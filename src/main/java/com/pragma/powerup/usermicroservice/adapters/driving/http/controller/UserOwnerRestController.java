@@ -17,8 +17,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Collections;
 import java.util.Map;
 
-import static com.pragma.powerup.usermicroservice.configuration.Constants.EMPLOYEE_ROLE_ID;
-
 @RestController
 @RequestMapping("/user-owner")
 @RequiredArgsConstructor
@@ -36,13 +34,13 @@ public class UserOwnerRestController {
 
             })
     @PostMapping("{restaurantId}/add-employee")
-    public ResponseEntity<Map<String, String>> saveOwner(@PathVariable Long restaurantId, @Valid @RequestBody @io.swagger.v3.oas.annotations.media.Schema(
+    public ResponseEntity<Map<String, String>> saveOwner( @Valid @RequestBody @io.swagger.v3.oas.annotations.media.Schema(
             description = "The request body",
             example = UserRequestDto.example
 
-    ) UserRequestDto userRequestDto) {
-
-        personHandler.saveUserEmployee(userRequestDto,restaurantId);
+    ) UserRequestDto userRequestDto, @PathVariable Long restaurantId, @RequestAttribute("userId") String userId) {
+        System.out.println(userId);
+        personHandler.saveUserEmployee(userRequestDto,userId,restaurantId);
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.PERSON_CREATED_MESSAGE));
     }
