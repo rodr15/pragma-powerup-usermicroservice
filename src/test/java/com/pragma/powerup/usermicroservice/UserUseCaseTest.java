@@ -27,6 +27,7 @@ public class UserUseCaseTest {
 
     @Mock
     private IUserPersistencePort userPersistencePort;
+    @Mock
     private PasswordEncoder passwordEncoder;
     private UserUseCase userUseCase;
 
@@ -71,7 +72,7 @@ public class UserUseCaseTest {
                 "Surname",
                 "123123123",
                 "3000000000",
-                LocalDate.of(2000,10,01),
+                LocalDate.of(2020,10,01),
                 "prueba@some.com",
                 "123",
                 new Role( 3L,"ROLE_OWNER","ROLE_OWNER" )
