@@ -1,6 +1,8 @@
 package com.pragma.powerup.usermicroservice;
 
 import com.pragma.powerup.usermicroservice.domain.exceptions.NotLegalAgeException;
+import com.pragma.powerup.usermicroservice.domain.exceptions.NotRestaurantOwnerException;
+import com.pragma.powerup.usermicroservice.domain.gateway.IPlazoletaClient;
 import com.pragma.powerup.usermicroservice.domain.model.Role;
 import com.pragma.powerup.usermicroservice.domain.model.User;
 import com.pragma.powerup.usermicroservice.domain.spi.IUserPersistencePort;
@@ -19,24 +21,27 @@ import java.time.LocalDate;
 import static org.hibernate.validator.internal.util.Contracts.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-public class UserUseCaseTest {
+class UserUseCaseTest {
 
     @Mock
     private IUserPersistencePort userPersistencePort;
+    @Mock
     private PasswordEncoder passwordEncoder;
+    @Mock
+    private IPlazoletaClient plazoletaClient;
     private UserUseCase userUseCase;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         MockitoAnnotations.initMocks(this);
-        userUseCase = new UserUseCase(userPersistencePort, passwordEncoder);
+        userUseCase = new UserUseCase(userPersistencePort, plazoletaClient, passwordEncoder);
     }
+
     @Test
-    public void testSaveUser_ValidUser_SaveSuccessful() {
+    void testSaveUser_ValidUser_SaveSuccessful() {
         // Arrange
         User user = new User(
                 3L,
@@ -44,10 +49,10 @@ public class UserUseCaseTest {
                 "Surname",
                 "123123123",
                 "3000000000",
-                LocalDate.of(2000,10,01),
+                LocalDate.of(2000, 10, 01),
                 "prueba@some.com",
                 "123",
-                new Role( 3L,"ROLE_OWNER","ROLE_OWNER" )
+                new Role(3L, "ROLE_OWNER", "ROLE_OWNER")
 
         );
         when(userPersistencePort.saveUser(user)).thenReturn(user);
@@ -63,7 +68,7 @@ public class UserUseCaseTest {
     }
 
     @Test
-    public void testSaveUser_UnderLegalAge_ThrowsNotLegalAgeException() {
+    void testSaveUser_UnderLegalAge_ThrowsNotLegalAgeException() {
         // Arrange
         User user = new User(
                 3L,
@@ -71,10 +76,10 @@ public class UserUseCaseTest {
                 "Surname",
                 "123123123",
                 "3000000000",
-                LocalDate.of(2000,10,01),
+                LocalDate.of(2020, 10, 01),
                 "prueba@some.com",
                 "123",
-                new Role( 3L,"ROLE_OWNER","ROLE_OWNER" )
+                new Role(3L, "ROLE_OWNER", "ROLE_OWNER")
 
         );
 
@@ -93,10 +98,10 @@ public class UserUseCaseTest {
                 "Surname",
                 "123123123",
                 "3000000000",
-                LocalDate.of(2000,10,01),
+                LocalDate.of(2000, 10, 01),
                 "prueba@some.com",
                 "123",
-                new Role( 3L,"ROLE_OWNER","ROLE_OWNER" )
+                new Role(3L, "ROLE_OWNER", "ROLE_OWNER")
 
         );
 
@@ -109,6 +114,69 @@ public class UserUseCaseTest {
         assertNotNull(result);
         assertEquals(user.getRole(), result);
         verify(userPersistencePort).getUser(userDni);
+    }
+
+    @Test
+    void testSaveUserEmployee_ValidUserAndOwner_ReturnsUser() {
+        // Arrange
+        User user = new User(
+                3L,
+                "Prueba",
+                "Surname",
+                "123123123",
+                "3000000000",
+                LocalDate.of(2000, 10, 01),
+                "prueba@some.com",
+                "123",
+                new Role(3L, "ROLE_OWNER", "ROLE_OWNER")
+
+        );
+        String ownerId = "123456789";
+        Long restaurantId = 1L;
+
+        when(plazoletaClient.verifyOwner(ownerId, restaurantId)).thenReturn(true);
+        when(userPersistencePort.saveUser(user)).thenReturn(user);
+        doNothing().when(plazoletaClient).assignRestaurantEmployee(user.getDniNumber(), restaurantId);
+
+        // Act
+        User result = userUseCase.saveUserEmployee(user, ownerId, restaurantId);
+
+        // Assert
+        assertNotNull(result);
+        assertEquals(user, result);
+
+        verify(plazoletaClient, times(1)).verifyOwner(ownerId, restaurantId);
+        verify(userPersistencePort, times(1)).saveUser(user);
+        verify(plazoletaClient, times(1)).assignRestaurantEmployee(user.getDniNumber(), restaurantId);
+    }
+
+    @Test
+    void testSaveUserEmployee_ValidUserAndNonOwner_ThrowsException() {
+        // Arrange
+        User user = new User(
+                3L,
+                "Prueba",
+                "Surname",
+                "123123123",
+                "3000000000",
+                LocalDate.of(2000, 10, 01),
+                "prueba@some.com",
+                "123",
+                new Role(1L, "ROLE_ADMIN", "ROLE_ADMIN")
+
+        );
+
+        String ownerId = "123456789";
+        Long restaurantId = 1L;
+
+        when(plazoletaClient.verifyOwner(ownerId, restaurantId)).thenReturn(false);
+
+        // Act & Assert
+        assertThrows(NotRestaurantOwnerException.class,
+                () -> userUseCase.saveUserEmployee(user, ownerId, restaurantId));
+
+        verify(plazoletaClient, times(1)).verifyOwner(ownerId, restaurantId);
+        verifyNoInteractions(userPersistencePort);
     }
 
 }

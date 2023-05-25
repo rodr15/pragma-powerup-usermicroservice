@@ -1,7 +1,6 @@
 package com.pragma.powerup.usermicroservice.adapters.driving.http.controller;
 
 import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.request.UserRequestDto;
-import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.response.RoleResponseDto;
 import com.pragma.powerup.usermicroservice.adapters.driving.http.handlers.IUserHandler;
 import com.pragma.powerup.usermicroservice.configuration.Constants;
 import io.swagger.v3.oas.annotations.Operation;
@@ -19,43 +18,29 @@ import java.util.Collections;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/user-owner")
 @RequiredArgsConstructor
 @SecurityRequirement(name = "jwt")
-public class UserRestController {
+public class UserOwnerRestController {
+
     private final IUserHandler personHandler;
 
-    /**
-     * @deprecated
-     * <p> Use {@link /user-admin/add-owner} instead.
-     */
-    @Deprecated(since = "",forRemoval = true)
-    @Operation(summary = "Add a new Owner",
-            responses = { 
-                @ApiResponse(responseCode = "201", description = "Owner created",
-                        content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Map"))),
-                @ApiResponse(responseCode = "409", description = "Person already exists",
-                        content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error"))),
+    @Operation(summary = "Add a new Employee",
+            responses = {
+                    @ApiResponse(responseCode = "201", description = "Employee created",
+                            content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Map"))),
+                    @ApiResponse(responseCode = "409", description = "Person already exists",
+                            content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error"))),
 
             })
-    @PostMapping("add-owner")
-    public ResponseEntity<Map<String, String>> saveOwner(@Valid @RequestBody @io.swagger.v3.oas.annotations.media.Schema(
+    @PostMapping("{restaurantId}/add-employee")
+    public ResponseEntity<Map<String, String>> saveOwner( @Valid @RequestBody @io.swagger.v3.oas.annotations.media.Schema(
             description = "The request body",
             example = UserRequestDto.example
 
-    ) UserRequestDto userRequestDto) {
-
-        personHandler.saveUserOwner(userRequestDto);
+    ) UserRequestDto userRequestDto, @PathVariable Long restaurantId, @RequestAttribute("userId") String userId) {
+        personHandler.saveUserEmployee(userRequestDto,userId,restaurantId);
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.PERSON_CREATED_MESSAGE));
     }
-
-    @GetMapping("user-role/{userDni}")
-    public ResponseEntity<RoleResponseDto> getUserRole(@PathVariable String userDni) {
-        return ResponseEntity.ok(personHandler.getRoleByUserId(userDni));
-    }
-
 }
-
-
-

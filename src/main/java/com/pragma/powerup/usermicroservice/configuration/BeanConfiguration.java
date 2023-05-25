@@ -1,5 +1,6 @@
 package com.pragma.powerup.usermicroservice.configuration;
 
+import com.pragma.powerup.usermicroservice.adapters.client.adapter.PlazoletaClienteImpl;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.adapter.RoleMysqlAdapter;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.adapter.UserMysqlAdapter;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.mappers.IRoleEntityMapper;
@@ -9,6 +10,7 @@ import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.repositorie
 import com.pragma.powerup.usermicroservice.adapters.driving.http.mapper.IRoleResponseMapper;
 import com.pragma.powerup.usermicroservice.domain.api.IRoleServicePort;
 import com.pragma.powerup.usermicroservice.domain.api.IUserServicePort;
+import com.pragma.powerup.usermicroservice.domain.gateway.IPlazoletaClient;
 import com.pragma.powerup.usermicroservice.domain.spi.IRolePersistencePort;
 import com.pragma.powerup.usermicroservice.domain.spi.IUserPersistencePort;
 import com.pragma.powerup.usermicroservice.domain.usecase.RoleUseCase;
@@ -28,6 +30,10 @@ public class BeanConfiguration {
     private final PasswordEncoder passwordEncoder;
     private final IRoleResponseMapper roleResponseMapper;
     @Bean
+    public IPlazoletaClient plazoletaClient() {
+        return new PlazoletaClienteImpl();
+    }
+    @Bean
     public IRoleServicePort roleServicePort() {
         return new RoleUseCase(rolePersistencePort());
     }
@@ -40,7 +46,7 @@ public class BeanConfiguration {
         return new UserMysqlAdapter(userRepository, userEntityMapper);
     }
     @Bean
-    public IUserServicePort userServicePort() {
-        return new UserUseCase(userPersistencePort(), passwordEncoder);
+    public IUserServicePort userServicePort( IUserPersistencePort userPersistencePort , IPlazoletaClient plazoletaClient, PasswordEncoder passwordEncoder  ) {
+        return new UserUseCase(userPersistencePort,plazoletaClient, passwordEncoder);
     }
 }

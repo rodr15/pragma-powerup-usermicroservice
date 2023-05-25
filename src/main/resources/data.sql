@@ -29,5 +29,6 @@ VALUES
 INSERT INTO `role` (`id`, `description`, `name`) VALUES ('1', 'ROLE_ADMIN', 'ROLE_ADMIN');
 INSERT INTO `role` (`id`, `description`, `name`) VALUES ('2', 'ROLE_USER', 'ROLE_USER');
 INSERT INTO `role` (`id`, `description`, `name`) VALUES ('3', 'ROLE_OWNER', 'ROLE_OWNER');
+INSERT INTO `role` (`id`, `description`, `name`) VALUES ('4', 'ROLE_EMPLOYEE', 'ROLE_EMPLOYEE');
 
 UPDATE user SET id_role = '1' WHERE id = 1;

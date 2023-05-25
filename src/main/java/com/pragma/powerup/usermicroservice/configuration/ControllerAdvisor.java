@@ -1,7 +1,9 @@
 package com.pragma.powerup.usermicroservice.configuration;
 
+import com.pragma.powerup.usermicroservice.adapters.client.exceptions.CouldNotAssignToRestaurant;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.exceptions.*;
 import com.pragma.powerup.usermicroservice.domain.exceptions.NotLegalAgeException;
+import com.pragma.powerup.usermicroservice.domain.exceptions.NotRestaurantOwnerException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.AuthenticationException;
@@ -94,5 +96,17 @@ public class ControllerAdvisor {
             NotLegalAgeException roleNotFoundException) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                 .body(Collections.singletonMap(RESPONSE_ERROR_MESSAGE_KEY, PERSON_NOT_LEGAL_AGE));
+    }
+    @ExceptionHandler(NotRestaurantOwnerException.class)
+    public ResponseEntity<Map<String, String>> handleNotRestaurantOwnerException(
+            NotRestaurantOwnerException notRestaurantOwnerException) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(Collections.singletonMap(RESPONSE_ERROR_MESSAGE_KEY, NOT_RESTAURANT_OWNER));
+    }
+    @ExceptionHandler(CouldNotAssignToRestaurant.class)
+    public ResponseEntity<Map<String, String>> handleCouldNotAssignToRestaurant(
+            CouldNotAssignToRestaurant couldNotAssignToRestaurant) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(Collections.singletonMap(RESPONSE_ERROR_MESSAGE_KEY, COULD_NOT_ASSIGN_TO_RESTAURANT));
     }
 }
