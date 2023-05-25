@@ -44,7 +44,7 @@ public class UserAdminRestController {
 
     ) UserRequestDto userRequestDto) {
 
-        personHandler.saveUserWithRole(userRequestDto, OWNER_ROLE_ID);
+        personHandler.saveUserOwner(userRequestDto);
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.PERSON_CREATED_MESSAGE));
     }

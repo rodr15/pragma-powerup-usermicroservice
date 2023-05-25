@@ -4,6 +4,7 @@ import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.request.Use
 import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.response.RoleResponseDto;
 
 public interface IUserHandler {
-    void saveUserWithRole(UserRequestDto personRequestDto, Long idRole);
+    void saveUserOwner(UserRequestDto personRequestDto);
+    void saveUserEmployee(UserRequestDto userRequestDto,Long restaurantId);
     RoleResponseDto getRoleByUserId(String userDni);
 }

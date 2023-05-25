@@ -9,6 +9,9 @@ import com.pragma.powerup.usermicroservice.domain.api.IUserServicePort;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import static com.pragma.powerup.usermicroservice.configuration.Constants.EMPLOYEE_ROLE_ID;
+import static com.pragma.powerup.usermicroservice.configuration.Constants.OWNER_ROLE_ID;
+
 @Service
 @RequiredArgsConstructor
 public class UserHandlerImpl implements IUserHandler {
@@ -17,13 +20,18 @@ public class UserHandlerImpl implements IUserHandler {
     private final IRoleResponseMapper roleResponseMapper;
 
     @Override
-    public void saveUserWithRole(UserRequestDto userRequestDto, Long idRole) {
-        personServicePort.saveUser(personRequestMapper.toUserWithRole(userRequestDto, idRole));
+    public void saveUserOwner(UserRequestDto userRequestDto) {
+        personServicePort.saveUser(personRequestMapper.toUserWithRole(userRequestDto, OWNER_ROLE_ID));
+    }
+
+    @Override
+    public void saveUserEmployee(UserRequestDto userRequestDto, Long restaurantId) {
+        personServicePort.saveUser(personRequestMapper.toUserWithRole(userRequestDto, EMPLOYEE_ROLE_ID));
     }
 
     @Override
     public RoleResponseDto getRoleByUserId(String userDni) {
-       return  roleResponseMapper.toRoleResponseDto(personServicePort.getRoleByUserId(userDni));
+        return roleResponseMapper.toRoleResponseDto(personServicePort.getRoleByUserId(userDni));
     }
 
 

@@ -36,13 +36,13 @@ public class UserOwnerRestController {
 
             })
     @PostMapping("{restaurantId}/add-employee")
-    public ResponseEntity<Map<String, String>> saveOwner(@PathVariable String restaurantId, @Valid @RequestBody @io.swagger.v3.oas.annotations.media.Schema(
+    public ResponseEntity<Map<String, String>> saveOwner(@PathVariable Long restaurantId, @Valid @RequestBody @io.swagger.v3.oas.annotations.media.Schema(
             description = "The request body",
             example = UserRequestDto.example
 
     ) UserRequestDto userRequestDto) {
 
-        personHandler.saveUserWithRole(userRequestDto, EMPLOYEE_ROLE_ID);
+        personHandler.saveUserEmployee(userRequestDto,restaurantId);
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.PERSON_CREATED_MESSAGE));
     }
