@@ -39,7 +39,6 @@ public class UserOwnerRestController {
             example = UserRequestDto.example
 
     ) UserRequestDto userRequestDto, @PathVariable Long restaurantId, @RequestAttribute("userId") String userId) {
-        System.out.println(userId);
         personHandler.saveUserEmployee(userRequestDto,userId,restaurantId);
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.PERSON_CREATED_MESSAGE));

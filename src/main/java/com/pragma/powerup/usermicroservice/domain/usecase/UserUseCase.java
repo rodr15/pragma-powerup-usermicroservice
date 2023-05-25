@@ -38,14 +38,12 @@ public class UserUseCase implements IUserServicePort {
         boolean isOwner = plazoletaClient.verifyOwner( ownerId , restaurantId );
 
         if(!isOwner){
-            throw new NotRestaurantOwnerException(); // TODO: add Exception to controller Advisor
+            throw new NotRestaurantOwnerException();
         }
 
-
-
-        // TODO: send new employee to the restaurant
-//        return saveUser( user );
-        return new User();
+        saveUser( user );
+        plazoletaClient.assignRestaurantEmployee( user.getDniNumber() , restaurantId );
+        return user;
     }
 
     @Override
