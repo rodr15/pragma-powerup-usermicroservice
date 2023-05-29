@@ -10,8 +10,7 @@ import com.pragma.powerup.usermicroservice.domain.model.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import static com.pragma.powerup.usermicroservice.configuration.Constants.EMPLOYEE_ROLE_ID;
-import static com.pragma.powerup.usermicroservice.configuration.Constants.OWNER_ROLE_ID;
+import static com.pragma.powerup.usermicroservice.configuration.Constants.*;
 
 @Service
 @RequiredArgsConstructor
@@ -19,6 +18,11 @@ public class UserHandlerImpl implements IUserHandler {
     private final IUserServicePort personServicePort;
     private final IUserRequestMapper personRequestMapper;
     private final IRoleResponseMapper roleResponseMapper;
+
+    @Override
+    public void saveUserClient(UserRequestDto personRequestDto) {
+        personServicePort.saveUser(personRequestMapper.toUserWithRole(personRequestDto, CLIENT_ROLE_ID));
+    }
 
     @Override
     public void saveUserOwner(UserRequestDto userRequestDto) {
