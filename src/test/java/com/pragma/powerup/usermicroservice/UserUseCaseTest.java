@@ -179,4 +179,22 @@ class UserUseCaseTest {
         verifyNoInteractions(userPersistencePort);
     }
 
+    @Test
+    void testGetUserPhone() {
+        // Arrange
+        String userDni = "123456789";
+        String expectedPhone = "+573123456789";
+        User user = new User();
+        user.setPhone(expectedPhone);
+
+        Mockito.when(userPersistencePort.getUser(userDni)).thenReturn(user);
+
+        // Act
+        String actualPhone = userUseCase.getUserPhone(userDni);
+
+        // Assert
+        assertEquals(expectedPhone, actualPhone);
+        Mockito.verify(userPersistencePort, Mockito.times(1)).getUser(userDni);
+    }
+
 }
