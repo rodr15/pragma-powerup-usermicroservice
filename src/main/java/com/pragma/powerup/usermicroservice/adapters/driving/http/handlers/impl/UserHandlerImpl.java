@@ -40,5 +40,10 @@ public class UserHandlerImpl implements IUserHandler {
         return roleResponseMapper.toRoleResponseDto(personServicePort.getRoleByUserId(userDni));
     }
 
+    @Override
+    public String getUserPhone(String userDni) {
+        return personServicePort.getUserPhone(userDni);
+    }
+
 
 }

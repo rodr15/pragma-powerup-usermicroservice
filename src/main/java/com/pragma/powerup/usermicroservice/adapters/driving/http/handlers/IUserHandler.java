@@ -8,4 +8,5 @@ public interface IUserHandler {
     void saveUserOwner(UserRequestDto personRequestDto);
     void saveUserEmployee(UserRequestDto userRequestDto,String ownerId, Long restaurantId) ;
     RoleResponseDto getRoleByUserId(String userDni);
+    String getUserPhone(String userDni);
 }
