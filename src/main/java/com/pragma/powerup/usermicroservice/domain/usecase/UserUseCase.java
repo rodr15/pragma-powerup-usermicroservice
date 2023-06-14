@@ -52,4 +52,10 @@ public class UserUseCase implements IUserServicePort {
         User user = userPersistencePort.getUser(userDni);
         return user.getRole();
     }
+
+    @Override
+    public String getUserPhone(String userDni) {
+        User user = userPersistencePort.getUser(userDni);
+        return user.getPhone();
+    }
 }

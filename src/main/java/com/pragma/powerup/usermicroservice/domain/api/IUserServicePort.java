@@ -8,5 +8,6 @@ public interface IUserServicePort {
     User saveUserEmployee(User user,String ownerId,Long restaurantId);
 
     Role getRoleByUserId(String userDni);
+    String getUserPhone(String userDni);
 
 }

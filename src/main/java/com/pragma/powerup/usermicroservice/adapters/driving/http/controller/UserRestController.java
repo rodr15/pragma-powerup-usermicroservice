@@ -55,6 +55,11 @@ public class UserRestController {
         return ResponseEntity.ok(personHandler.getRoleByUserId(userDni));
     }
 
+    @GetMapping("user-phone/{userDni}")
+    public ResponseEntity<String>  getUserPhone(@PathVariable String userDni) {
+        return ResponseEntity.ok(personHandler.getUserPhone(userDni));
+    }
+
 }
 
 
